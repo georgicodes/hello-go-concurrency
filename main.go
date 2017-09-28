@@ -7,7 +7,11 @@ import (
 )
 
 func init() {
-	// a single logical processor for scheduler to use
+	// When set to 1, a single logical processor for scheduler to use,
+	// meaning only 1 goroutine is running at any given time.
+	//
+	// When set to 2, the goroutines will run in parallel as there will be
+	// 2 processors with a thread each.
 	runtime.GOMAXPROCS(2)
 }
 
@@ -46,7 +50,7 @@ func countdown() {
 	fmt.Println("countdown")
 	i := 100
 	for i >= 0 {
-		fmt.Printf("%d:%s\n", i, "countdown")
+		fmt.Printf("%d:%s ", i, "UP")
 		i = i - 1
 	}
 }
@@ -55,7 +59,7 @@ func countup() {
 	fmt.Println("countup")
 	i := 0
 	for i <= 100 {
-		fmt.Printf("%d:%s\n", i, "countup")
+		fmt.Printf("%d:%s ", i, "dn")
 		i = i + 1
 	}
 }
